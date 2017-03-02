@@ -8,6 +8,7 @@
 
 #import "ScrollingNavbarDemoViewController.h"
 #import "UINavigationBar+Awesome.h"
+#import "UIScrollView+NavigationBar.h"
 
 @interface ScrollingNavbarDemoViewController()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -21,22 +22,24 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    self.tableView.navigationView = self.navigationController.navigationBar;
+    self.tableView.navigationType = NavigationTypeHiden;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY > 0) {
-        if (offsetY >= 44) {
-            [self setNavigationBarTransformProgress:1];
-        } else {
-            [self setNavigationBarTransformProgress:(offsetY / 44)];
-        }
-    } else {
-        [self setNavigationBarTransformProgress:0];
-        self.navigationController.navigationBar.backIndicatorImage = [UIImage new];
-    }
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    CGFloat offsetY = scrollView.contentOffset.y;
+//    if (offsetY > 0) {
+//        if (offsetY >= 44) {
+//            [self setNavigationBarTransformProgress:1];
+//        } else {
+//            [self setNavigationBarTransformProgress:(offsetY / 44)];
+//        }
+//    } else {
+//        [self setNavigationBarTransformProgress:0];
+//        self.navigationController.navigationBar.backIndicatorImage = [UIImage new];
+//    }
+//}
 
 - (void)setNavigationBarTransformProgress:(CGFloat)progress
 {

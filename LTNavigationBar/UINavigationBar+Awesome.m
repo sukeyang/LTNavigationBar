@@ -14,18 +14,15 @@
 @implementation UINavigationBar (Awesome)
 static char overlayKey;
 
-- (UIView *)overlay
-{
+- (UIView *)overlay {
     return objc_getAssociatedObject(self, &overlayKey);
 }
 
-- (void)setOverlay:(UIView *)overlay
-{
+- (void)setOverlay:(UIView *)overlay {
     objc_setAssociatedObject(self, &overlayKey, overlay, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)lt_setBackgroundColor:(UIColor *)backgroundColor
-{
+- (void)lt_setBackgroundColor:(UIColor *)backgroundColor {
     if (!self.overlay) {
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.overlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + 20)];
@@ -36,13 +33,11 @@ static char overlayKey;
     self.overlay.backgroundColor = backgroundColor;
 }
 
-- (void)lt_setTranslationY:(CGFloat)translationY
-{
+- (void)lt_setTranslationY:(CGFloat)translationY {
     self.transform = CGAffineTransformMakeTranslation(0, translationY);
 }
 
-- (void)lt_setElementsAlpha:(CGFloat)alpha
-{
+- (void)lt_setElementsAlpha:(CGFloat)alpha {
     [[self valueForKey:@"_leftViews"] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger i, BOOL *stop) {
         view.alpha = alpha;
     }];
@@ -64,8 +59,7 @@ static char overlayKey;
     }];
 }
 
-- (void)lt_reset
-{
+- (void)lt_reset {
     [self setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.overlay removeFromSuperview];
     self.overlay = nil;
